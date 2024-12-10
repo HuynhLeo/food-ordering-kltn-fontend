@@ -16,11 +16,11 @@ const HomePage = () => {
     <div className="flex flex-col gap-12">
       <div className="md:px-32 bg-white rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-16">
         <h1 className="text-5xl font-bold tracking-tight text-orange-600">
-          Tuck into a takeway today
+          Hôm nay đi mua đồ mang về
         </h1>
-        <span className="text-xl">Food is just a click away!</span>
+        <span className="text-xl">Món ăn chỉ cách bạn một cái nhấp chuột!</span>
         <SearchBar
-          placeHolder="Search by City or Town"
+          placeHolder="Tìm kiếm theo Thành phố hoặc Thị trấn"
           onSubmit={handleSearchSubmit}
         />
       </div>
@@ -28,11 +28,11 @@ const HomePage = () => {
         <img src={landingImage} />
         <div className="flex flex-col items-center justify-center gap-4 text-center">
           <span className="font-bold text-3xl tracking-tighter">
-            Order takeaway even faster!
+            Đặt hàng mang đi thậm chí còn nhanh hơn!
           </span>
           <span>
-            Download the MernEats App for faster ordering and personalised
-            recommendations
+            Tải xuống Ứng dụng LeoShop để đặt hàng nhanh hơn và được cá nhân hóa
+            khuyến nghị
           </span>
           <img src={appDownloadImage} />
         </div>

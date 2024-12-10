@@ -27,7 +27,7 @@ const MobileNav = () => {
               {user?.email}
             </span>
           ) : (
-            <span> Welcome to MernEats.com!</span>
+            <span> Chào mừng bạn đến với LeoShop.com!</span>
           )}
         </SheetTitle>
         <Separator />
@@ -39,7 +39,7 @@ const MobileNav = () => {
               onClick={() => loginWithRedirect()}
               className="flex-1 font-bold bg-orange-500"
             >
-              Log In
+              Đăng nhập
             </Button>
           )}
         </SheetDescription>

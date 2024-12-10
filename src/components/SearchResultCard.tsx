@@ -8,6 +8,10 @@ type Props = {
 };
 
 const SearchResultCard = ({ restaurant }: Props) => {
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(amount);
+  };
+
   return (
     <Link
       to={`/detail/${restaurant._id}`}
@@ -26,7 +30,7 @@ const SearchResultCard = ({ restaurant }: Props) => {
         <div id="card-content" className="grid md:grid-cols-2 gap-2">
           <div className="flex flex-row flex-wrap">
             {restaurant.cuisines.map((item, index) => (
-              <span className="flex">
+              <span className="flex" key={index}>
                 <span>{item}</span>
                 {index < restaurant.cuisines.length - 1 && <Dot />}
               </span>
@@ -35,11 +39,11 @@ const SearchResultCard = ({ restaurant }: Props) => {
           <div className="flex gap-2 flex-col">
             <div className="flex items-center gap-1 text-green-600">
               <Clock className="text-green-600" />
-              {restaurant.estimatedDeliveryTime} mins
+              {restaurant.estimatedDeliveryTime} phút
             </div>
             <div className="flex items-center gap-1">
               <Banknote />
-              Delivery from £{(restaurant.deliveryPrice / 100).toFixed(2)}
+              Phí giao hàng từ {formatCurrency(restaurant.deliveryPrice)}
             </div>
           </div>
         </div>

@@ -45,30 +45,34 @@ const OrderItemCard = ({ order }: Props) => {
     return `${hours}:${paddedMinutes}`;
   };
 
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(amount);
+  };
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="grid md:grid-cols-4 gap-4 justify-between mb-3">
           <div>
-            Customer Name:
+            Tên khách hàng:
             <span className="ml-2 font-normal">
               {order.deliveryDetails.name}
             </span>
           </div>
           <div>
-            Delivery address:
+            Địa chỉ giao hàng:
             <span className="ml-2 font-normal">
               {order.deliveryDetails.addressLine1}, {order.deliveryDetails.city}
             </span>
           </div>
           <div>
-            Time:
+            Thời gian:
             <span className="ml-2 font-normal">{getTime()}</span>
           </div>
           <div>
-            Total Cost:
+            Tổng chi phí:
             <span className="ml-2 font-normal">
-              £{(order.totalAmount / 100).toFixed(2)}
+              {formatCurrency(order.totalAmount)}
             </span>
           </div>
         </CardTitle>
@@ -77,7 +81,7 @@ const OrderItemCard = ({ order }: Props) => {
       <CardContent className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           {order.cartItems.map((cartItem) => (
-            <span>
+            <span key={cartItem._id}>
               <Badge variant="outline" className="mr-2">
                 {cartItem.quantity}
               </Badge>
@@ -86,18 +90,20 @@ const OrderItemCard = ({ order }: Props) => {
           ))}
         </div>
         <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="status">What is the status of this order?</Label>
+          <Label htmlFor="status">Trạng thái của đơn hàng này là gì?</Label>
           <Select
             value={status}
             disabled={isLoading}
             onValueChange={(value) => handleStatusChange(value as OrderStatus)}
           >
             <SelectTrigger id="status">
-              <SelectValue placeholder="Status" />
+              <SelectValue placeholder="Trạng thái" />
             </SelectTrigger>
             <SelectContent position="popper">
               {ORDER_STATUS.map((status) => (
-                <SelectItem value={status.value}>{status.label}</SelectItem>
+                <SelectItem key={status.value} value={status.value}>
+                  {status.label}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>

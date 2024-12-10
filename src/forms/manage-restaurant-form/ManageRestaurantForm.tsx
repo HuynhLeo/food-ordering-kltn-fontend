@@ -15,36 +15,36 @@ import { useEffect } from "react";
 const formSchema = z
   .object({
     restaurantName: z.string({
-      required_error: "restuarant name is required",
+      required_error: "Tên nhà hàng là bắt buộc",
     }),
     city: z.string({
-      required_error: "city is required",
+      required_error: "Thành phố là bắt buộc",
     }),
     country: z.string({
-      required_error: "country is required",
+      required_error: "Quốc gia là bắt buộc",
     }),
     deliveryPrice: z.coerce.number({
-      required_error: "delivery price is required",
-      invalid_type_error: "must be a valid number",
+      required_error: "Giá giao hàng là bắt buộc",
+      invalid_type_error: "Phải là một số hợp lệ",
     }),
     estimatedDeliveryTime: z.coerce.number({
-      required_error: "estimated delivery time is required",
-      invalid_type_error: "must be a valid number",
+      required_error: "Thời gian giao hàng ước tính là bắt buộc",
+      invalid_type_error: "Phải là một số hợp lệ",
     }),
     cuisines: z.array(z.string()).nonempty({
-      message: "please select at least one item",
+      message: "Vui lòng chọn ít nhất một món ăn",
     }),
     menuItems: z.array(
       z.object({
-        name: z.string().min(1, "name is required"),
-        price: z.coerce.number().min(1, "price is required"),
+        name: z.string().min(1, "Tên là bắt buộc"),
+        price: z.coerce.number().min(1, "Giá là bắt buộc"),
       })
     ),
     imageUrl: z.string().optional(),
-    imageFile: z.instanceof(File, { message: "image is required" }).optional(),
+    imageFile: z.instanceof(File, { message: "Ảnh là bắt buộc" }).optional(),
   })
   .refine((data) => data.imageUrl || data.imageFile, {
-    message: "Either image URL or image File must be provided",
+    message: "Phải cung cấp URL ảnh hoặc tệp ảnh",
     path: ["imageFile"],
   });
 
@@ -70,7 +70,7 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
       return;
     }
 
-    // price lowest domination of 100 = 100pence == 1GBP
+    // Giá thấp nhất là 100 = 100 xu = 1 GBP
     const deliveryPriceFormatted = parseInt(
       (restaurant.deliveryPrice / 100).toFixed(2)
     );
@@ -135,7 +135,7 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
         <MenuSection />
         <Separator />
         <ImageSection />
-        {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
+        {isLoading ? <LoadingButton /> : <Button type="submit">Gửi</Button>}
       </form>
     </Form>
   );

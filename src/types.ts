@@ -28,7 +28,7 @@ export type Restaurant = {
 };
 
 export type OrderStatus =
-  | "placed"
+  | "Đã đặt"
   | "paid"
   | "inProgress"
   | "outForDelivery"
