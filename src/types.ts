@@ -29,10 +29,10 @@ export type Restaurant = {
 
 export type OrderStatus =
   | "Đã đặt"
-  | "paid"
-  | "inProgress"
-  | "outForDelivery"
-  | "delivered";
+  | "Đã thanh toán"
+  | "Đang xử lý"
+  | "Đang giao"
+  | "Đã giao";
 
 export type Order = {
   _id: string;

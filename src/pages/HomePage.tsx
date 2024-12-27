@@ -31,7 +31,7 @@ const HomePage = () => {
             Đặt hàng mang đi thậm chí còn nhanh hơn!
           </span>
           <span>
-            Tải xuống Ứng dụng LeoShop để đặt hàng nhanh hơn và được cá nhân hóa
+            Tải xuống Ứng dụng LEOFOOD để đặt hàng nhanh hơn và được cá nhân hóa
             khuyến nghị
           </span>
           <img src={appDownloadImage} />

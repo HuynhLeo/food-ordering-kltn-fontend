@@ -24,15 +24,15 @@ const OrderSummary = ({ restaurant, cartItems, removeFromCart }: Props) => {
 
     const totalWithDelivery = totalInPence + restaurant.deliveryPrice;
 
-    return formatCurrency(totalWithDelivery / 100); // Chia cho 100 nếu đơn vị tính là xu
+    return formatCurrency(totalWithDelivery); // Chia cho 100 nếu đơn vị tính là xu
   };
 
   return (
     <>
       <CardHeader>
         <CardTitle className="text-2xl font-bold tracking-tight flex justify-between">
-          <span>Đơn hàng của bạn</span>
-          <span>{getTotalCost()}</span>
+          <span>Đơn hàng của bạn </span>
+          <span> {getTotalCost()}</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
@@ -51,14 +51,14 @@ const OrderSummary = ({ restaurant, cartItems, removeFromCart }: Props) => {
                 size={20}
                 onClick={() => removeFromCart(item)}
               />
-              {formatCurrency((item.price * item.quantity) / 100)} {/* Chia cho 100 nếu đơn vị tính là xu */}
+              {formatCurrency((item.price * item.quantity))} {/* Chia cho 100 nếu đơn vị tính là xu */}
             </span>
           </div>
         ))}
         <Separator />
         <div className="flex justify-between">
           <span>Phí giao hàng</span>
-          <span>{formatCurrency(restaurant.deliveryPrice / 100)}</span> {/* Chia cho 100 nếu đơn vị tính là xu */}
+          <span>{formatCurrency(restaurant.deliveryPrice)}</span> {/* Chia cho 100 nếu đơn vị tính là xu */}
         </div>
         <Separator />
       </CardContent>

@@ -9,11 +9,11 @@ type OrderStatusInfo = {
 export const ORDER_STATUS: OrderStatusInfo[] = [
   { label: "Đã đặt", value: "Đã đặt", progressValue: 0 },
   {
-    label: "Awaiting Restaurant Confirmation",
+    label: "Đang chờ xác nhận từ nhà hàng",
     value: "paid",
     progressValue: 25,
   },
-  { label: "In Progress", value: "inProgress", progressValue: 50 },
-  { label: "Out for Delivery", value: "outForDelivery", progressValue: 75 },
-  { label: "Delivered", value: "delivered", progressValue: 100 },
+  { label: "Đang xử lý", value: "inProgress", progressValue: 50 },
+  { label: "Đang giao", value: "outForDelivery", progressValue: 75 },
+  { label: "Đã giao", value: "delivered", progressValue: 100 },
 ];

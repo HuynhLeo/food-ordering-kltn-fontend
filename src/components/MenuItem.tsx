@@ -7,16 +7,26 @@ type Props = {
 };
 
 const MenuCard = ({ menuItem, addToCart }: Props) => {
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(amount);
+  };
+
+  const price = typeof menuItem.price === "number" ? menuItem.price : 0;
+
   return (
     <Card className="cursor-pointer" onClick={addToCart}>
       <CardHeader>
         <CardTitle>{menuItem.name}</CardTitle>
       </CardHeader>
       <CardContent className="font-bold">
-        {(menuItem.price / 100000).toFixed(3)} VND
+        {formatCurrency(price)}
       </CardContent>
     </Card>
   );
 };
 
 export default MenuCard;
+

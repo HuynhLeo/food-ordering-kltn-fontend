@@ -37,17 +37,38 @@ const OrderItemCard = ({ order }: Props) => {
   const getTime = () => {
     const orderDateTime = new Date(order.createdAt);
 
-    const hours = orderDateTime.getHours();
-    const minutes = orderDateTime.getMinutes();
+    // Chuyển đổi sang múi giờ Việt Nam (UTC+7)
+    const vietnamTime = orderDateTime.toLocaleString("en-US", {
+      timeZone: "Asia/Ho_Chi_Minh",
+      hour12: false,
+    });
 
-    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const [date, time] = vietnamTime.split(", ");
+    const [hours, minutes] = time.split(":");
 
-    return `${hours}:${paddedMinutes}`;
+    return `${hours}:${minutes}`;
   };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(amount);
   };
+
+  // Tính tổng chi phí đơn hàng
+  const calculateTotalAmount = () => {
+    return order.cartItems.reduce((total, item) => {
+      // Tìm món ăn trong menuItems
+      const menuItem = order.restaurant.menuItems.find((menuItem) => menuItem._id === item.menuItemId);
+      if (menuItem && menuItem.price && item.quantity) {
+        const quantity = parseInt(item.quantity);
+        if (!isNaN(quantity)) {
+          return total + menuItem.price * quantity;
+        }
+      }
+      return total;
+    }, 0);
+  };
+
+  const totalAmount = calculateTotalAmount();
 
   return (
     <Card>
@@ -72,7 +93,7 @@ const OrderItemCard = ({ order }: Props) => {
           <div>
             Tổng chi phí:
             <span className="ml-2 font-normal">
-              {formatCurrency(order.totalAmount)}
+              {formatCurrency(totalAmount)}
             </span>
           </div>
         </CardTitle>
@@ -81,7 +102,7 @@ const OrderItemCard = ({ order }: Props) => {
       <CardContent className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           {order.cartItems.map((cartItem) => (
-            <span key={cartItem._id}>
+            <span key={cartItem.menuItemId}>
               <Badge variant="outline" className="mr-2">
                 {cartItem.quantity}
               </Badge>
@@ -90,7 +111,7 @@ const OrderItemCard = ({ order }: Props) => {
           ))}
         </div>
         <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="status">Trạng thái của đơn hàng này là gì?</Label>
+          <Label htmlFor="status">Trạng thái đơn hàng</Label>
           <Select
             value={status}
             disabled={isLoading}

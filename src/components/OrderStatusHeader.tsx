@@ -10,16 +10,16 @@ const OrderStatusHeader = ({ order }: Props) => {
   const getExpectedDelivery = () => {
     const created = new Date(order.createdAt);
 
-    created.setMinutes(
-      created.getMinutes() + order.restaurant.estimatedDeliveryTime
-    );
+    // Chuyển đổi sang múi giờ Việt Nam (UTC+7)
+    const vietnamTime = created.toLocaleString("en-US", {
+      timeZone: "Asia/Ho_Chi_Minh",
+      hour12: false,
+    });
 
-    const hours = created.getHours();
-    const minutes = created.getMinutes();
+    const [date, time] = vietnamTime.split(", ");
+    const [hours, minutes] = time.split(":");
 
-    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-    return `${hours}:${paddedMinutes}`;
+    return `${hours}:${minutes}`;
   };
 
   const getOrderStatusInfo = () => {
