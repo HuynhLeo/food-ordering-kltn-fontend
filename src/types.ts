@@ -29,7 +29,7 @@ export type Restaurant = {
 
 export type OrderStatus =
   | "Đã đặt"
-  | "Đã thanh toán"
+  | "Đang chờ xác nhận từ nhà hàng"
   | "Đang xử lý"
   | "Đang giao"
   | "Đã giao";

@@ -43,7 +43,7 @@ const OrderItemCard = ({ order }: Props) => {
       hour12: false,
     });
 
-    const [date, time] = vietnamTime.split(", ");
+    const [time] = vietnamTime.split(", ");
     const [hours, minutes] = time.split(":");
 
     return `${hours}:${minutes}`;
