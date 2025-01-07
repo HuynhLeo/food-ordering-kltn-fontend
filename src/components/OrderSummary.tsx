@@ -18,13 +18,13 @@ const OrderSummary = ({ restaurant, cartItems, removeFromCart }: Props) => {
 
   const getTotalCost = () => {
     const totalInPence = cartItems.reduce(
-      (total, cartItem) => total + cartItem.price * cartItem.quantity,
+      (total, cartItem) => (total + cartItem.price * cartItem.quantity),
       0
     );
 
-    const totalWithDelivery = totalInPence + restaurant.deliveryPrice;
+    const totalWithDelivery = (totalInPence / 100) + restaurant.deliveryPrice;
 
-    return formatCurrency(totalWithDelivery); // Chia cho 100 nếu đơn vị tính là xu
+    return formatCurrency((totalWithDelivery)); // Chia cho 100 nếu đơn vị tính là xu
   };
 
   return (
@@ -51,7 +51,7 @@ const OrderSummary = ({ restaurant, cartItems, removeFromCart }: Props) => {
                 size={20}
                 onClick={() => removeFromCart(item)}
               />
-              {formatCurrency((item.price * item.quantity))} {/* Chia cho 100 nếu đơn vị tính là xu */}
+              {formatCurrency((item.price * item.quantity) / 100)} {/* Chia cho 100 nếu đơn vị tính là xu */}
             </span>
           </div>
         ))}

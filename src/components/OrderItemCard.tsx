@@ -34,19 +34,21 @@ const OrderItemCard = ({ order }: Props) => {
     setStatus(newStatus);
   };
 
-  const getTime = () => {
-    const orderDateTime = new Date(order.createdAt);
+  const getDateAndTime = () => {
+    const created = new Date(order.createdAt);
 
     // Chuyển đổi sang múi giờ Việt Nam (UTC+7)
-    const vietnamTime = orderDateTime.toLocaleString("en-US", {
+    const vietnamDate = created.toLocaleDateString("vi-VN", {
       timeZone: "Asia/Ho_Chi_Minh",
-      hour12: false,
     });
 
-    const [time] = vietnamTime.split(", ");
-    const [hours, minutes] = time.split(":");
+    const vietnamTime = created.toLocaleTimeString("vi-VN", {
+      timeZone: "Asia/Ho_Chi_Minh",
+      hour: '2-digit',
+      minute: '2-digit',
+    });
 
-    return `${hours}:${minutes}`;
+    return `${vietnamDate} ${vietnamTime}`; // Kết hợp ngày và giờ
   };
 
   const formatCurrency = (amount: number) => {
@@ -88,12 +90,18 @@ const OrderItemCard = ({ order }: Props) => {
           </div>
           <div>
             Thời gian:
-            <span className="ml-2 font-normal">{getTime()}</span>
+            <span className="ml-2 font-normal">{getDateAndTime()}</span>
+          </div>
+          <div>
+            Phí giao hàng:
+            <span className="ml-2 font-normal">
+              {formatCurrency(3000000 / 100)}
+            </span>
           </div>
           <div>
             Tổng chi phí:
-            <span className="ml-2 font-normal">
-              {formatCurrency(totalAmount)}
+            <span className="ml-2 font-normal inline-block">
+              {formatCurrency((totalAmount + 3000000) / 100)}
             </span>
           </div>
         </CardTitle>

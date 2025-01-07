@@ -41,17 +41,26 @@ const OrderStatusDetail = ({ order }: Props) => {
       <div className="flex flex-col">
         <span className="font-bold">Đơn hàng của bạn</span>
         <ul>
-          {order.cartItems.map((item, index) => (
-            <li key={index}>
-              {item.name} x {item.quantity}
-            </li>
-          ))}
+          {order.cartItems.map((item, index) => {
+            const menuItem = order.restaurant.menuItems.find(
+              (menu) => menu._id === item.menuItemId
+            );
+            const itemTotal = menuItem ? menuItem.price * parseInt(item.quantity, 10) : 0;
+
+            return (
+              <li key={index}>
+                {item.name} x {item.quantity} = {menuItem ? formatCurrency(itemTotal / 100) : "Giá không có sẵn"}
+              </li>
+            );
+          })}
         </ul>
       </div>
       <Separator />
       <div className="flex flex-col">
+        <span className="font-bold">Phí giao hàng</span>
+        <span>{formatCurrency(30000)}</span>
         <span className="font-bold">Tổng cộng</span>
-        <span>{formatCurrency(totalAmount)}</span> {/* Chia / 1000 trước khi hiển thị */}
+        <span>{formatCurrency((totalAmount + 3000000) / 100)}</span> {/* Chia / 1000 trước khi hiển thị */}
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ const MenuCard = ({ menuItem, addToCart }: Props) => {
         <CardTitle>{menuItem.name}</CardTitle>
       </CardHeader>
       <CardContent className="font-bold">
-        {formatCurrency(price)}
+        {formatCurrency(price / 100)}
       </CardContent>
     </Card>
   );

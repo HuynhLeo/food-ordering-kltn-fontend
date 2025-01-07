@@ -11,15 +11,17 @@ const OrderStatusHeader = ({ order }: Props) => {
     const created = new Date(order.createdAt);
 
     // Chuyển đổi sang múi giờ Việt Nam (UTC+7)
-    const vietnamTime = created.toLocaleString("en-US", {
+    const vietnamDate = created.toLocaleDateString("vi-VN", {
       timeZone: "Asia/Ho_Chi_Minh",
-      hour12: false,
     });
 
-    const [time] = vietnamTime.split(", ");
-    const [hours, minutes] = time.split(":");
+    const vietnamTime = created.toLocaleTimeString("vi-VN", {
+      timeZone: "Asia/Ho_Chi_Minh",
+      hour: '2-digit',
+      minute: '2-digit',
+    });
 
-    return `${hours}:${minutes}`;
+    return `${vietnamDate} ${vietnamTime}`; // Kết hợp ngày và giờ
   };
 
   const getOrderStatusInfo = () => {
@@ -32,7 +34,7 @@ const OrderStatusHeader = ({ order }: Props) => {
     <>
       <h1 className="text-4xl font-bold tracking-tighter flex flex-col gap-5 md:flex-row md:justify-between">
         <span> Trạng thái đơn hàng: {getOrderStatusInfo().label}</span>
-        <span> Thời gian đặt hàng: {getExpectedDelivery()}</span>
+        <span> Ngày đặt hàng: {getExpectedDelivery()}</span>
       </h1>
       <Progress
         className="animate-pulse"
